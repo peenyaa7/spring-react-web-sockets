@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SpringReactWebSocketsServerApplication<spring-react-web-sockets-server>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "es.peenyaa7.springreactwebsocketsserver.SpringReactWebSocketsServerApplication",
+            "projectName": "spring-react-web-sockets-server",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
