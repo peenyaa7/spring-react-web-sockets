@@ -1,18 +1,16 @@
 import { createContext } from "react";
-import { WebSocketSubscription } from "../interfaces/WebSocketSubscription";
+import { Message } from "stompjs";
+import { WebSocketState } from "../interfaces/WebSocketState";
 
 // Definimos que información va a exponer el contexto
 export interface WebSocketContextProps {
-    connected: boolean;
+    socketState: WebSocketState;
     loading: boolean;
-    subscriptions: WebSocketSubscription[];
     connect: () => void;
     disconnect: () => void;
-    subscribe: ( topic: string, callback: (message: string) => void ) => void;
-    unsubscribe: ( topic: string ) => void;
+    subscribe: ( topic: string, callback: (message: Message) => void ) => string | null;
+    unsubscribe: ( subId: string ) => void;
     publish: ( topic: string, message: string ) => void;
-    isSubscribed: ( topic: string ) => boolean;
-    onNewMessage: ( topic: string, message: string ) => void;
 }
 
 // Creamos el contexto con la información anterior

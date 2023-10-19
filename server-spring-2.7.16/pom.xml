@@ -18,6 +18,12 @@
 	</properties>
 	<dependencies>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
+
         <!-- Spring MVC -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

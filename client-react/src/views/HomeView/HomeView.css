@@ -1,0 +1,64 @@
+/* NAV */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+nav #nav-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+nav .connection-dot {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+nav .connection-connected-dot {
+    background-color: green;
+}
+
+nav .connection-disconnected-dot {
+    background-color: red;
+}
+
+
+/* MAIN */
+
+main {
+    padding: 10px;
+}
+
+main #help-box {
+    background-color: #f9f9f934;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+main #sub-viewer-container {
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+main #sub-viewer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+
+/* FOOTER */
+
+footer {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
