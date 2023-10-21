@@ -54,6 +54,14 @@ main #sub-viewer-grid {
     grid-gap: 10px;
 }
 
+@media (max-width: 768px) {
+    main #sub-viewer-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    
+}
+
 
 /* FOOTER */
 

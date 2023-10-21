@@ -60,7 +60,7 @@ export const HomeView = () => {
                             <input type="text" id="topic" placeholder="/topic/..." value={topicToSubscribe} onChange={(e) => setTopicToSubscribe(e.target.value)} />
                             <button onClick={() => addSubscription(topicToSubscribe)} style={{ marginLeft: 10 }}>Suscribirse</button>
                         </div>
-                        <small>¡Tip!: Prueba a suscribirte a <em>/topic/message</em></small>
+                        <small>¡Tip!: Prueba a suscribirte a <em>/topic/scheduled</em></small>
                     </>) : (<>
                         <p>Para empezar, conecta el WebSocket (botón de arriba)</p>
                     </>)

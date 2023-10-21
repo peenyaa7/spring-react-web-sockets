@@ -3,14 +3,20 @@
 Ejemplo de conexión Web Socket entre Spring (como servidor) y React (como cliente).
 Incluye explicaciones.
 
+![Demo](./imgs/demo.gif)
+
 ## Información
 
-Proyecto elaborado con:
-- Java 17
-- Spring Boot 2.7.16
-- Maven 3.8.7
-- Node 18.12.1
-- Yarn 1.22.19
+| Servidor | Cliente |
+| :---: | :---: |
+| Java 17 | Node 18.17.1 |
+| Spring Boot 2.7.16 | Yarn 1.22.19 |
+| Maven 3.8.7 | React 18.2.0 |
+| | SockJS 1.6.1 |
+| | STOMP 2.3.3 |
+
+
+[TOC]
 
 ## Explicación
 
@@ -96,28 +102,67 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 ```json
 "dependencies": {
-    "stompjs": "^2.3.3",
-    "sockjs-client": "^1.6.1",
+    "stompjs": "2.3.3",
+    "sockjs-client": "1.6.1",
 },
 "devDependencies": {
-    "@types/sockjs-client": "^1.5.2",
-    "@types/stompjs": "^2.3.6",
+    "@types/sockjs-client": "1.5.2",
+    "@types/stompjs": "2.3.6",
 }
 ```
 
-## Ejecución
+## Ejecución del proyecto
 
-### 1. Servidor
+Descargamos el proyecto
 
 ```bash
-mvn spring-boot:run
+git clone https://github.com/peenyaa7/spring-react-web-sockets.git
 ```
 
-### 2. Cliente
+### 1. Ejecución con Docker 🐳
 
 ```bash
+docker-compose up -d
+```
+
+Este comando ejecuta el servidor y el cliente sin tener que instalar nada en local. Para acceder al cliente, abrir el navegador en http://localhost
+
+
+### 2. Ejecución en local
+
+Para ejecutar el servidor:
+
+```bash
+cd server-spring-2.7.16
+.\mvnw.cmd spring-boot:run
+```
+
+Para ejecutar el cliente:
+
+```bash
+cd client-react
 yarn run dev
 ```
+
+Para acceder al cliente, abrir el navegador en http://localhost:8000
+
+## Uso
+
+### 1. Recibir mensajes cada 5 segundos
+
+En el servidor existe una tarea programada que envía un mensaje cada 5 segundos a todos los clientes suscritos al topic `/topic/scheduled`. Prueba a subscribirte a este topic para recibir los mensajes.
+
+**NOTA**: Puedes subscribirte a un mismo topic cuantas veces quieras, cada subscripción es independiente.
+
+### 2. Enviar mensajes entre varios clientes
+
+Accede a la aplicación desde varios clientes (es decir, desde varias pestañas del navegador, varios navegadores o varios dispositivos de la red local). Subscríbete al cualquier topic que comience con `/topic` o `/queue` y envía un mensaje a ese topic. Todos los clientes suscritos a ese topic recibirán el mensaje.
+
+### 3. Topics no disponibles
+
+En la configuración del servidor, se ha habilitado un broker en memoria con los topics que tiene el prefijo `/topic` y `/queue`. Si intentas subscribirte a un topic que no tiene este prefijo, no ocurrirá nada. Es decir, no se mostrará ningún error en la consola del navegador ni en la consola del servidor. Tampoco se mostrará ningún mensaje cuando se envíe un mensaje a ese topic.
+
+Prueba a subscribirte a un topic que no tiene el prefijo `/topic` ni `/queue` con varios clientes y envía un mensaje a ese topic. No ocurrirá nada.
 
 ## Resolución de problemas
 

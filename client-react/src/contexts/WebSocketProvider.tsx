@@ -1,8 +1,7 @@
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import { WebSocketContext } from "./WebSocketContext";
 import { Client, Message, over } from "stompjs";
-import { WS_URL } from "../constants/WebSocketConstants";
-import { WebSocketSubscription } from "../interfaces/WebSocketSubscription";
+import { WS_URI } from "../constants/WebSocketConstants";
 import SockJS from 'sockjs-client';
 import { WebSocketState } from "../interfaces/WebSocketState";
 import { webSocketReducer } from "./WebSocketReducer";
@@ -18,27 +17,16 @@ export const WebSocketProvider = ({ children }: any) => {
 
     const [socket, setSocket] = useState<Client>({} as Client)
     const [loading, setLoading] = useState<boolean>(false);
-    // const [subscriptions, setSubscriptions] = useState<WebSocketSubscription[]>([])
-
-    // useEffect(() => {
-    //     const interval = setInterval(() => {
-    //         if (socket && socket.connected) {
-    //             console.log("SocketContext: Información de las suscripciones", subscriptions);
-    //         }
-    //     }, 5000);
-    //     return () => clearInterval(interval);
-    // }, [socket, subscriptions]);
 
 	const connect = () => {
         setLoading(true);
-        const sock = new SockJS(WS_URL);
+        const sock = new SockJS(WS_URI);
         const stompClient = over(sock);
         if (stompClient) {
 
             setSocket(stompClient);
 
             stompClient.connect({}, () => {
-                console.log('SocketContext: Conectado a ' + WS_URL);
                 dispatch({ type: 'CONNECT' });
                 setLoading(false);
             }, (error: any) => {
@@ -49,7 +37,6 @@ export const WebSocketProvider = ({ children }: any) => {
             });
             
             sock.onclose = () => {
-                console.log('SocketContext: Desconectado (inesperado)');
                 dispatch({ type: 'CLEAR_SUBS' });
                 dispatch({ type: 'DISCONNECT' });
                 setLoading(false);
@@ -58,7 +45,7 @@ export const WebSocketProvider = ({ children }: any) => {
             stompClient.debug = () => { }; // Deshabilitamos los logs de stompjs            
 
         } else {
-            console.warn('SocketContext: No se ha podido conectar a ' + WS_URL);
+            console.warn('SocketContext: No se ha podido conectar a ' + WS_URI);
         }
 
     }
@@ -82,11 +69,6 @@ export const WebSocketProvider = ({ children }: any) => {
     const subscribe = ( topic: string, callback: (message: Message) => void ): string | null => {
         if (socket) {
 
-            // if (subscriptions.find(s => s.topic === topic)) {
-            //     console.log('SocketContext: Ya está suscrito a ' + topic);
-            //     return null;
-            // }
-
             const sub = socket.subscribe(topic, (message) => {
                 callback(message);
             });
@@ -108,15 +90,6 @@ export const WebSocketProvider = ({ children }: any) => {
             socket.send(topic, {}, message);
         }
     }
-
-    // const isSubscribed = ( topic: string ) => {
-    //     return subscriptions.find(s => s.topic === topic) !== undefined;
-    // }
-
-    // const onNewMessage = ( topic: string, message: string ) => {
-    //     console.log('SocketContext: Nuevo mensaje en ' + topic, message);
-    //     // socket.
-    // }
 
 	return (
 		// El 'value' es la información que exponemos a cualquier hijo

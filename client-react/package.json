@@ -13,7 +13,6 @@
     "@types/sockjs-client": "^1.5.2",
     "@types/stompjs": "^2.3.6",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.9.0",
     "react-dom": "^18.2.0",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3"

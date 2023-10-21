@@ -16,8 +16,8 @@ public class WebSocketScheduledService {
     @Scheduled(fixedDelay = 5000)
     public void sendMessage() {
         final String message = "Hello from scheduled service!";
-        System.out.println("Sending message: " + message + " to /topic/message");
-        simpMessagingTemplate.convertAndSend("/topic/message", message);
+        System.out.println("Sending message: " + message + " to /topic/scheduled");
+        simpMessagingTemplate.convertAndSend("/topic/scheduled", message);
     }
 
 }

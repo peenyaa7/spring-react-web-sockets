@@ -1,0 +1,14 @@
+version: "3.4"
+services:
+  client:
+    build:
+      context: ./client-react
+      dockerfile: Dockerfile
+    ports:
+      - "80:8000"
+  server:
+    build:
+      context: ./server-spring-2.7.16
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
